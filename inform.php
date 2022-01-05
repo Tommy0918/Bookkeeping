@@ -18,11 +18,11 @@ $result = $stmt->fetchAll();
 
 for($i=0;$i<count($result);$i++){
     echo "<tr>";
-    echo "<td>".$result[$i]['Type']."</td>";
-    echo "<td>".$result[$i]['Date']."</td>";
-    echo "<td>".$result[$i]['Description']."</td>";
+    echo "<td>".$result[$i]['type']."</td>";
+    echo "<td>".$result[$i]['date']."</td>";
+    echo "<td>".$result[$i]['description']."</td>";
     echo "<td>".$result[$i]['cost']."</td>";
-    echo "<td>".$result[$i]['Category']."</td>";
+    echo "<td>".$result[$i]['category']."</td>";
     echo "</tr>.";
 }
 echo "</table>";
