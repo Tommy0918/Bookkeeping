@@ -1,17 +1,23 @@
 <?php
 include_once "db_conn.php";
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+echo "test";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    echo "test554";
     $name = $_POST["account"];
     $password = $_POST["password"];//獲取表單資料
-    $query = ("SELECT * FROM user where username='$name' AND password='$password'");
+    echo $name;
+    echo $password;
+    $query = ("SELECT * FROM user where name=? AND password=?");
     $stmt = $db->prepare($query);
-    $stmt -> execute(array());
-    $result = $stmt -> fetchALL();
-
-
+    $stmt -> execute(array($name, $password));
+    if($stmt->rowCount() == 0){
+        echo "<script>alert('帳號或密碼錯誤'); location.href = 'login.php';</script>";
+    }
+    else{
+        echo "<script>alert('請開始使用記帳系統'); location.href = 'login.php';</script>";//網址會變
+    }
 }
 ?>
-<html>
 <style>
     #show{
         padding: 0;
@@ -37,13 +43,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         cursor: pointer;
     }
 </style>
+<html>
 <head>
-    <meta http-equiv='Content-type' content='text/html'; charest='utf-8'>
-    <meta http-equiv="Pragma" Content="No-cache"> <!--清除快取-->
+<!--    <meta http-equiv='Content-type' content='text/html'; charest='utf-8'>-->
+<!--    <meta http-equiv="Pragma" Content="No-cache"> 清除快取-->
 </head>
 <center>
     <body>
-    <from name="loginForm" action="" method="post">
+    <form action="" method="post">
         <h1>記帳小幫手</h1>
         <h3>登入</h3>
         帳號:<input id="show1" type="text" name="account">
@@ -64,11 +71,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         </script>
         <br>
         <br>
-        <form>
-            <input type="submit" value="註冊" style="margin-right:150px;">
-            <input type="submit" value="登入">
-        </form>
-    </from>
+        <input type="submit" value="註冊" style="margin-right:150px;">
+        <input type="submit" value="登入">
+    </form>
     </body>
 </center>
 </html>
