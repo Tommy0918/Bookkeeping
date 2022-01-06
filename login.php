@@ -1,20 +1,22 @@
 <?php
 include_once "db_conn.php";
-echo "test";
+session_start();
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    echo "test554";
     $name = $_POST["account"];
     $password = $_POST["password"];//獲取表單資料
-    echo $name;
-    echo $password;
     $query = ("SELECT * FROM user where name=? AND password=?");
     $stmt = $db->prepare($query);
     $stmt -> execute(array($name, $password));
+    $result = $stmt->fetchAll();
     if($stmt->rowCount() == 0){
         echo "<script>alert('帳號或密碼錯誤'); location.href = 'login.php';</script>";
     }
     else{
-        echo "<script>alert('請開始使用記帳系統'); location.href = 'login.php';</script>";//網址會變
+        $_SESSION["login"]=true;
+        $_SESSION["name"]=$name;
+        $_SESSION["ID"]=$result[0]['ID'];
+        echo "<script>alert('請開始使用記帳系統'); location.href = 'bookkeeping.php';</script>";//網址會變
     }
 }
 ?>
