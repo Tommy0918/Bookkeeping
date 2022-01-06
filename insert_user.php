@@ -7,8 +7,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password2=$_POST["password_check"];
     if($name==""||$password1=="")//判斷是否填寫
     {
-        echo"<script type="."\""."text/javascript"."\"".">"."window.alert"."("."\""."請填寫完成！"."\"".")".";"."</script>";
-        echo"<script type="."\""."text/javascript"."\"".">"."window.location="."\""."insert_user.php"."\""."</script>";
+        echo "<script>alert('請確實填寫'); location.href = 'insert_user.php';</script>";
         exit;
     }
     if($password1==$password2)//確認密碼是否正確
@@ -19,8 +18,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $pa=$pass[0];
         if($pa==1)//判斷資料庫表中是否已存在該使用者名稱
         {
-            echo"<script type="."\""."text/javascript"."\"".">"."window.alert"."("."\""."該使用者名稱已被註冊"."\"".")".";"."</script>";
-            echo"<script type="."\""."text/javascript"."\"".">"."window.location="."\""."insert_user.php"."\""."</script>";
+            echo "<script>alert('此帳號已被註冊'); location.href = 'insert_user.php';</script>";
             exit;
         }
         $sql="insert into register values("."\""."$name"."\"".","."\""."$password1"."\"".")";//將註冊資訊插入資料庫表中
@@ -32,13 +30,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         {
 //echo"資料庫關閉";
 //echo"註冊成功！";
-            echo"<script type="."\""."text/javascript"."\"".">"."window.location="."\""."welcome.php"."\""."</script>";
+            echo "<script>alert('請確實填寫'); location.href = 'login.php';</script>";
         }
     }
     else
     {
-        echo"<script type="."\""."text/javascript"."\"".">"."window.alert"."("."\""."密碼不一致！"."\"".")".";"."</script>";
-        echo"<script type="."\""."text/javascript"."\"".">"."window.location="."\""."insert_user.php"."\""."</script>";
+        echo "<script>alert('密碼不一致'); location.href = 'insert_user.php';</script>";
     }
 
     $query = ("insert into user values(?,?,?)");
