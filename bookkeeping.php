@@ -46,10 +46,11 @@ else{
         <?php
             $query = ("SELECT * FROM category where type = ?");
             $stmt = $db->prepare($query);
-            $stmt->execute(array(0));
+            $stmt->execute(array(false));
             $result = $stmt->fetchAll();
-            for($i = 0; $i <$stmt->rowCount();$i++){
-                echo"<option>$result[$i]['category']</option>";
+            for($i = $stmt->rowCount()-1; $i >=0;$i--){
+                $temp = $result[$i]['category'];
+                echo"<option>$temp</option>";
             }
         ?>
     </select><br/><br/>
