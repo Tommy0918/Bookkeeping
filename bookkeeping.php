@@ -11,6 +11,14 @@ if($_SESSION['login']) {
         $category = $_POST["used"];//獲取表單資料
         $date = $_POST["date"];
         $des = $_POST["dec"];
+        if($type == "in" && $cost < 0){
+            echo "<script>alert('收入不能為負'); location.href = 'bookkeeping.php';</script>";
+            exit();
+        }
+        else if(!is_numeric($cost)) {
+            echo "<script>alert('請輸入合理數字'); location.href = 'bookkeeping.php';</script>";
+            exit();
+        }
         $query = ("insert into record values(?,?,?,?,?,?,?)");
         $stmt = $db->prepare($query);
         $stmt->execute(array($ID, null, $type, $category, $date, $des, $cost));
@@ -33,7 +41,7 @@ else{
 <h1>記帳資訊</h1>
 <form name="registerForm" method="post" action=" " onsubmit="return validateForm()">
     日  期 ：
-    <input type="date" name="date"><br/><br/>
+    <input required type="date" name="date"><br/><br/>
     金  額 ：
     <input type="text" name="total"><br/><br/>
     收  支 :
@@ -71,7 +79,7 @@ else{
                     $stmt->execute(array(false));
                     $result = $stmt->fetchAll();
                     for ($i = $stmt->rowCount() - 1; $i >= 0; $i--) {
-                        $inner = $inner."<option>".$result[$i]['category']."</option>" ;
+                        $inner = $inner."<option>".$result[$i]['category_name']."</option>" ;
                     }
                 ?>
                 inner="<?php echo $inner; ?>";
@@ -85,7 +93,7 @@ else{
                     $stmt->execute(array(true));
                     $result = $stmt->fetchAll();
                     for($i = $stmt->rowCount()-1; $i >=0;$i--){
-                        $inner = $inner."<option>".$result[$i]['category']."</option>" ;
+                        $inner = $inner."<option>".$result[$i]['category_name']."</option>" ;
                     }
                 ?>
                 inner="<?php echo $inner; ?>";

@@ -73,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </script>
         <br>
         <br>
-        <input type="submit" value="註冊" style="margin-right:150px;">
+        <input type="button" value="註冊" style="margin-right:150px;" onclick="location.href='insert_user.php'">
         <input type="submit" value="登入">
     </form>
     </body>
