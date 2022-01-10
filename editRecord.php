@@ -199,9 +199,7 @@ include("db_conn.php");
                         $sql = "select * from record";
                         if($stmt = $db->prepare($sql)){
                             $stmt->execute();
-
                             for($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++){
-
                                 echo "<tr>";
                                     echo '<th scope="row">'.$count.'</th>';
                                     echo "<td>";
@@ -212,7 +210,6 @@ include("db_conn.php");
                                     echo "<td>".$rows[$count]['date']."</td>";
                                     echo "<td>".$rows[$count]['cost']."</td>";
                                 echo "</tr>";
-
                             }
                         }
                 ?>
