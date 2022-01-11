@@ -110,20 +110,19 @@ include("db_conn.php");
     <link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.css">
     <link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <script>
-        function ChangeContent(rec_id){
-            document.getElementById("rec_id").value = rec_id;
-            document.getElementById("mfrom").action = "editRecord.php";
+        function ChangeContent(c_id){
+            document.getElementById("c_id").value = c_id;
+            document.getElementById("mfrom").action = "editCategory.php";
             document.getElementById("mfrom").submit();
         }
 
         function UpdateContent(){
-
-            document.getElementById("mfrom").action = "edit_mdysave.php";
+            document.getElementById("mfrom").action = "category_update.php";
             document.getElementById("mfrom").submit();
         }
 
         function DeleteContent(){
-            document.getElementById("mfrom").action = "edit_delsave.php";
+            document.getElementById("mfrom").action = "category_delete.php";
             document.getElementById("mfrom").submit();
         }
 
@@ -134,8 +133,8 @@ include("db_conn.php");
     </script>
 </head>
 <body>
-<form id="mfrom" method="post" action="editRecord.php">
-    <input type="hidden" id="rec_id" name="rec_id" value="<?php echo isset($_POST["rec_id"])?$_POST["rec_id"]:""?>">
+<form id="mfrom" method="post" action="editCategory.php">
+    <input type="hidden" id="c_id" name="c_id" value="<?php echo isset($_POST["c_id"])?$_POST["c_id"]:""?>">
     <div class="menu">
         <table class="menu_css">
             <tr>
@@ -157,35 +156,31 @@ include("db_conn.php");
     <div class="content">
         <div class="inner_content">
             <table class="table">
-                <input class="btn btn-default" type="button" value="新增" onclick="InsertContent();">
                 <div style="text-align: left;font-family: &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-size: 15px;font-weight: bold;">
                     <!--總數量為:-->
                     <?php
-                    $sql = "SELECT COUNT(*) FROM record";
+                    $sql = "SELECT COUNT(*) FROM category";
                     $stmt =  $db->prepare($sql);
                     $error = $stmt->execute();
 
                     if($rowcount = $stmt->fetchColumn())
-                        //echo $rowcount;
+                    //echo $rowcount;
                     ?>
                 </div>
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>description</th>
+                    <th>category_name</th>
                     <th>type</th>
-                    <th>cost</th>
-                    <th>category</th>
-                    <th>date</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
-                if(isset($_POST["rec_id"]) && !empty($_POST["rec_id"])){
-                    $rec_id = $_POST["rec_id"];
-                    $sql = "select * from record where rec_id = ?";
+                if(isset($_POST["c_id"]) && !empty($_POST["c_id"])){
+                    $c_id = $_POST["c_id"];
+                    $sql = "select * from category where c_id = ?";
                     if($stmt = $db->prepare($sql)){
-                        $stmt->execute(array($rec_id));
+                        $stmt->execute(array($c_id));
                         if($result = $stmt->fetchALL()){
                             ?>
                             <tr>
@@ -193,77 +188,17 @@ include("db_conn.php");
                                     <input class="btn btn-default" type="button" value="按我更新" onclick="UpdateContent();">
                                     <input class="btn btn-default" type="button" value="按我刪除" onclick="DeleteContent();">
                                 </th>
-                                <td><input type="text" id="description" name="description" value="<?php echo $result[0]['description'];?>"/></td>
+                                <td><input type="text" id="category_name" name="category_name" value="<?php echo $result[0]['category_name'];?>"/></td>
                                 <td><select id="type_list" name="type" onchange="changeCollege(this.selectedIndex)">>
                                         <option  value=1>收入</option>
                                         <option  value=0>支出</option>
                                     </select></td>
-                                <td><input type="text" id="cost" name="cost" value="<?php echo $result[0]['cost'];?>"/></td>
-
-                                <td>
-                                    <select id="category_list" name="category">
-                                        <!--預設進來時是支出，類別選單用支出的-->
-                                        <?php
-                                        $inner = "";
-                                        $query = ("SELECT * FROM category where type = ?");
-                                        $stmt = $db->prepare($query);
-                                        $stmt->execute(array(true));
-                                        $result = $stmt->fetchAll();
-                                        for ($i = $stmt->rowCount() - 1; $i >= 0; $i--) {
-                                            echo "<option>".$result[$i]['category']."</option>" ;
-                                        }
-                                        ?>
-                                    </select>
-
-                                    <script type="text/javascript">
-                                        var typeSelect=document.getElementById("type-list");
-                                        var categorySelect=document.getElementById("category-list");
-                                        //收支選單的選取值改變時，改變類別選單
-                                        function changeCollege(index){
-                                            var inner;
-                                            if(index == 1) {
-                                                <!--支出(type=0)-->
-                                                <?php
-                                                $inner = "";
-                                                $query = ("SELECT * FROM category where type = ?");
-                                                $stmt = $db->prepare($query);
-                                                $stmt->execute(array(false));
-                                                $result = $stmt->fetchAll();
-                                                for ($i = $stmt->rowCount() - 1; $i >= 0; $i--) {
-                                                    $inner = $inner."<option>".$result[$i]['category_name']."</option>" ;
-                                                }
-                                                ?>
-                                                inner="<?php echo $inner; ?>";
-                                            }
-                                            else{
-                                                <!--收入(type=1)-->
-                                                <?php
-                                                $inner = "";
-                                                $query = ("SELECT * FROM category where type = ?");
-                                                $stmt = $db->prepare($query);
-                                                $stmt->execute(array(true));
-                                                $result = $stmt->fetchAll();
-                                                for($i = $stmt->rowCount()-1; $i >=0;$i--){
-                                                    $inner = $inner."<option>".$result[$i]['category_name']."</option>" ;
-                                                }
-                                                ?>
-                                                inner="<?php echo $inner; ?>";
-                                            }
-                                            //改動類別選單的內容
-                                            var categorySelect=document.getElementById("category_list");
-                                            categorySelect.innerHTML=inner;
-                                        }
-                                        changeCollege(document.getElementById("type-list").selectedIndex);
-                                    </script>
-                                </td>
-
-                                <td><input required type="date" id="date" name="date" value="<?php echo $result[0]['date'];?>"/></td>
                             </tr>
                             <?php
                         }
                     }
                 }else{
-                    $sql = "select * from record";
+                    $sql = "select * from category";
                     if($stmt = $db->prepare($sql)){
                         $stmt->execute();
 
@@ -272,20 +207,16 @@ include("db_conn.php");
                             <tr>
                                 <th scope="row"><?php echo $count;?></th>
                                 <td>
-                                    <a onclick="ChangeContent('<?php echo $rows[$count]['rec_id'];?>');"><?php echo $rows[$count]['description'];?></a>
+                                    <a onclick="ChangeContent('<?php echo $rows[$count]['c_id'];?>');"><?php echo $rows[$count]['category_name'];?></a>
                                 </td>
-                                <?php echo $rows[$count]['type'];?>
                                 <td>
                                     <?php
-                                        if($rows[$count]['type'])
-                                            echo '收入';
-                                        else
-                                            echo '支出';
-                                        ?>
+                                    if($rows[$count]['type'])
+                                        echo '收入';
+                                    else
+                                        echo '支出';
+                                    ?>
                                 </td>
-                                <td><?php echo $rows[$count]['cost'];?></td>
-                                <td><?php echo $rows[$count]['category'];?></td>
-                                <td><?php echo $rows[$count]['date'];?></td>
                             </tr>
                             <?php
                         }

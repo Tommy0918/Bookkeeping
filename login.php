@@ -16,11 +16,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION["login"]=true;
         $_SESSION["name"]=$name;
         $_SESSION["ID"]=$result[0]['ID'];
-        echo "<script>alert('請開始使用記帳系統'); location.href = 'bookkeeping.php';</script>";//網址會變
+        echo "<script>alert('請開始使用記帳系統'); location.href = 'editRecord.php';</script>";//網址會變
     }
 }
 ?>
 <style>
+
     #show{
         padding: 0;
         border: 1px solid black;
@@ -46,6 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 </style>
 <html>
+
 <head>
 <!--    <meta http-equiv='Content-type' content='text/html'; charest='utf-8'>-->
 <!--    <meta http-equiv="Pragma" Content="No-cache"> 清除快取-->

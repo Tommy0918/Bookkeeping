@@ -22,7 +22,7 @@ if($_SESSION['login']) {
         $query = ("insert into record values(?,?,?,?,?,?,?)");
         $stmt = $db->prepare($query);
         $stmt->execute(array($ID, null, $type, $category, $date, $des, $cost));
-
+        header('Location: editRecord.php');
     }
 }
 else{
