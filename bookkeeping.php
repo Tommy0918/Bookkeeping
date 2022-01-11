@@ -7,12 +7,12 @@ if($_SESSION['login']) {
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cost = $_POST["total"];
-        $type = $_POST["ways"];//獲取表單資料
-        $category = $_POST["used"];//獲取表單資料
+        $type = $_POST["type"];//獲取表單資料
+        $category = $_POST["category"];//獲取表單資料
         $date = $_POST["date"];
         $des = $_POST["dec"];
-        if($type == "in" && $cost < 0){
-            echo "<script>alert('收入不能為負'); location.href = 'bookkeeping.php';</script>";
+        if($cost < 0){
+            echo "<script>alert('金額不能為負'); location.href = 'bookkeeping.php';</script>";
             exit();
         }
         else if(!is_numeric($cost)) {
@@ -82,6 +82,11 @@ else{
         .menu_css td:hover {
             background-color: black;
         }
+        .menu_css th {
+            height: 40px;
+            padding: 8px 0px 8px 0px;
+            float: right;
+        }
 
         .menu_search{
             width: 30%;
@@ -132,6 +137,7 @@ else{
         form {
             margin-bottom: 0em;
         }
+        t
     </style>
     <link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -140,15 +146,30 @@ else{
 </head>
 
 <body>
+<form name="registerForm" method="post" action=" " onsubmit="return validateForm()">
 <div class="menu">
     <table class="menu_css">
         <tr>
+            <th>
+                Hi~<?php echo $_SESSION['name'] ?>
+                <button onclick="confirmEvent()">點我登出</button>
+
+                <script>
+                    function confirmEvent() {
+                        if (confirm("確定要登出嗎?")) {
+                            alert("已登出");
+                            location.href="login.php";
+                        }
+                    }
+                </script>
+            </th>
             <td>
                 <a href="editRecord.php">編輯紀錄</a>
             </td>
             <td>
                 <a href="">編輯類別</a>
             </td>
+
         </tr>
     </table>
 </div>
@@ -161,8 +182,8 @@ else{
             <tr>
                 <th>日  期</th>
                 <th>收  支</th>
-                <th>收  支</th>
-                <th>category</th>
+                <th>類  別</th>
+                <th>描  述</th>
                 <th>金  額</th>
             </tr>
             </thead>
@@ -233,10 +254,10 @@ else{
                     </script>
                 </td>
                 <td>
-                    <input type="text" name="total">
+                    <input type="text" name="dec">
                 </td>
                 <td>
-                    <input type="text" name="dec">
+                    <input required type="text" name="total">
                 </td>
                 <td>
                     <input type="submit" value="新增" name="check" >
@@ -246,7 +267,7 @@ else{
         </table>
     </div>
 </div>
-
+</form>
 </body>
 </center>
 </html>
