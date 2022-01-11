@@ -127,10 +127,7 @@ include("db_conn.php");
             document.getElementById("mfrom").submit();
         }
 
-        function InsertContent(){
-            document.getElementById("mfrom").action = "bookkeeping.php";
-            document.getElementById("mfrom").submit();
-        }
+
     </script>
 </head>
 <body>
@@ -146,6 +143,9 @@ include("db_conn.php");
                     <a href="editCategory.php">編輯類別</a>
                 </td>
                 <td>
+                    <a href="bookkeeping.php">新增紀錄</a>
+                </td>
+                <td>
                     <a href="insert_category.php">新增類別</a>
                 </td>
             </tr>
@@ -157,7 +157,7 @@ include("db_conn.php");
     <div class="content">
         <div class="inner_content">
             <table class="table">
-                <input class="btn btn-default" type="button" value="新增" onclick="InsertContent();">
+                <!--<input class="btn btn-default" type="button" value="新增" onclick="location.href='bookkeeping.php'">-->
                 <div style="text-align: left;font-family: &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-size: 15px;font-weight: bold;">
                     <!--總數量為:-->
                     <?php
