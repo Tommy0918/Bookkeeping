@@ -15,7 +15,7 @@ if($stmt->rowCount() == 0){
     header('Location: editCategory.php');
 }
 else{
-    echo "<script>alert('紀錄中有這個類別'); location.href = 'category_delete.php';</script>";
+    echo "<script>alert('紀錄中有這個類別，不給你刪'); location.href = 'category_delete.php';</script>";
 }
 
 ?>
