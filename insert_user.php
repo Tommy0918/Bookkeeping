@@ -51,7 +51,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 </head>
 <body>
-<h1>註冊頁面</h1>
+<div>
+    <table>
+        <tr>
+
+    <input type ="button" onclick="location.href='login.php'" value="回登入頁面"></input>
+
+            <td>
+                <h1>註冊頁面</h1><!--原本body~form只有這行-->
+            </td>
+        </tr>
+    </table>
+</div>
 <form name="registerForm" method="post" action="">
     帳  號：
     <input id = "show" type="text" name="username"><br/><br/>

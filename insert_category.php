@@ -23,7 +23,7 @@ if($_SESSION['login']) {
         $query = ("insert into category values(?,?,?)");
         $stmt = $db->prepare($query);
         $stmt->execute(array($category, null, $type));
-        header('Location: editRecord.php');
+        header('Location: edit_record.php');
     }
 }
 else{

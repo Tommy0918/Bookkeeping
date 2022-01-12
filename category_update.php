@@ -15,6 +15,6 @@ if($category_name == ''){
 $sql = "UPDATE category SET category_name=?,type =? WHERE c_id=?;";
 $stmt = $db->prepare($sql);
 $stmt->execute(array($category_name, $type,$c_id));
-header('Location: editCategory.php');
+header('Location: edit_category.php');
 
 ?>

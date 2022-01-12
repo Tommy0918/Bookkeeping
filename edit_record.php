@@ -22,7 +22,7 @@ else{
     <script>
         function ChangeContent(rec_id){
             document.getElementById("rec_id").value = rec_id;
-            document.getElementById("mfrom").action = "editRecord.php";
+            document.getElementById("mfrom").action = "edit_record.php";
             document.getElementById("mfrom").submit();
         }
 
@@ -41,7 +41,7 @@ else{
     </script>
 </head>
 <body>
-<form id="mfrom" method="post" action="editRecord.php">
+<form id="mfrom" method="post" action="edit_record.php">
     <input type="hidden" id="rec_id" name="rec_id" value="<?php echo isset($_POST["rec_id"])?$_POST["rec_id"]:""?>">
 
     <div class="content">
@@ -170,31 +170,41 @@ else{
                         }
                     }
                 }else{
-                    $sql = "select * from record";
+                    $sql = "select * from record where ID = ?";
                     if($stmt = $db->prepare($sql)){
-                        $stmt->execute();
-
-                        for($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++){
+                        $stmt->execute(array($ID));
+                        $rows = $stmt->fetchAll();
+                        if(count($rows) != 0){
+                            for($count = 0; $count < count($rows); $count++){
+                                ?>
+                                <tr>
+                                    <th scope="row"><a onclick="ChangeContent('<?php echo $rows[$count]['rec_id'];?>');"><?php echo $count+1;?></a></th>
+                                    <td><?php echo $rows[$count]['date'];?></td>
+                                    <td>
+                                        <?php
+                                            if($rows[$count]['type'])
+                                                echo '收入';
+                                            else
+                                                echo '支出';
+                                            ?>
+                                    </td>
+                                    <td><?php echo $rows[$count]['category'];?></td>
+                                    <td>
+                                        <?php echo $rows[$count]['description'];?>
+                                    </td>
+                                    <td><?php echo $rows[$count]['cost'];?></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        else{
                             ?>
                             <tr>
-                                <th scope="row"><a onclick="ChangeContent('<?php echo $rows[$count]['rec_id'];?>');"><?php echo $count+1;?></a></th>
-                                <td><?php echo $rows[$count]['date'];?></td>
-                                <td>
-                                    <?php
-                                        if($rows[$count]['type'])
-                                            echo '收入';
-                                        else
-                                            echo '支出';
-                                        ?>
-                                </td>
-                                <td><?php echo $rows[$count]['category'];?></td>
-                                <td>
-                                    <?php echo $rows[$count]['description'];?>
-                                </td>
-                                <td><?php echo $rows[$count]['cost'];?></td>
+                                <h3>你還沒做過紀錄喔~</h3>
                             </tr>
                             <?php
                         }
+
                     }
                 }
                 ?>

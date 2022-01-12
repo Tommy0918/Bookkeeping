@@ -13,11 +13,11 @@ if($_SESSION["login"]) {
         $date = $_POST["date"];
         $des = $_POST["dec"];
         if($cost < 0){
-            echo "<script>alert('金額不能為負'); location.href = 'bookkeeping.php';</script>";
+            echo "<script>alert('金額不能為負'); location.href = 'insert_record.php';</script>";
             exit();
         }
         else if(!is_numeric($cost)) {
-            echo "<script>alert('請輸入合理數字'); location.href = 'bookkeeping.php';</script>";
+            echo "<script>alert('請輸入合理數字'); location.href = 'insert_record.php';</script>";
             exit();
         }
         if($des=='')
@@ -25,7 +25,7 @@ if($_SESSION["login"]) {
         $query = ("insert into record values(?,?,?,?,?,?,?)");
         $stmt = $db->prepare($query);
         $stmt->execute(array($ID, null, $type, $category, $date, $des, $cost));
-        header('Location: editRecord.php');
+        header('Location: edit_record.php');
     }
 }
 else{

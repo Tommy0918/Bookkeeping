@@ -22,7 +22,7 @@ else{
     <script>
         function ChangeContent(c_id){
             document.getElementById("c_id").value = c_id;
-            document.getElementById("mfrom").action = "editCategory.php";
+            document.getElementById("mfrom").action = "edit_category.php";
             document.getElementById("mfrom").submit();
         }
 
@@ -43,7 +43,7 @@ else{
     </script>
 </head>
 <body>
-<form id="mfrom" method="post" action="editCategory.php">
+<form id="mfrom" method="post" action="edit_category.php">
     <input type="hidden" id="c_id" name="c_id" value="<?php echo isset($_POST["c_id"])?$_POST["c_id"]:""?>">
 
     <div class="content">

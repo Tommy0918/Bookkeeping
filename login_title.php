@@ -19,13 +19,13 @@
                 </script>
             </th>
             <td>
-                <a href="editRecord.php">Home</a>
+                <a href="edit_record.php">Home</a>
             </td>
             <td>
-                <a href="editCategory.php">編輯類別</a>
+                <a href="edit_category.php">編輯類別</a>
             </td>
             <td>
-                <a href="bookkeeping.php">新增紀錄</a>
+                <a href="insert_record.php">新增紀錄</a>
             </td>
             <td>
                 <a href="insert_category.php">新增類別</a>

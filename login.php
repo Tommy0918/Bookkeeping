@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION["login"]=true;
         $_SESSION["name"]=$name;
         $_SESSION["ID"]=$result[0]['ID'];
-        echo "<script>alert('請開始使用記帳系統'); location.href = 'editRecord.php';</script>";//網址會變
+        echo "<script>alert('登入成功!請開始使用記帳系統'); location.href = 'edit_record.php';</script>";//網址會變
     }
 }
 ?>
