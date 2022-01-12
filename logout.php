@@ -14,3 +14,7 @@ if(isset($_COOKIE[session_name()]))
 //4、徹底銷燬session
 session_destroy();
 ?>
+<script>
+    location.href="login.php";
+</script>
+

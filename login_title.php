@@ -13,7 +13,6 @@
                         if (confirm("確定要登出嗎?")) {
                             alert("已登出");
                             location.href="logout.php";
-                            location.href="login.php";
                         }
                     }
                 </script>
