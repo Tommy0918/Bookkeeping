@@ -28,12 +28,12 @@ else{
 
         function UpdateContent(){
 
-            document.getElementById("mfrom").action = "edit_mdysave.php";
+            document.getElementById("mfrom").action = "record_update.php";
             document.getElementById("mfrom").submit();
         }
 
         function DeleteContent(){
-            document.getElementById("mfrom").action = "edit_delsave.php";
+            document.getElementById("mfrom").action = "record_delete.php";
             document.getElementById("mfrom").submit();
         }
 

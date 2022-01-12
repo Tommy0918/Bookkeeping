@@ -1,6 +1,6 @@
 <?php
     $user = 'root';
-    $password = '123456789';
+    $password = 'zxdwaqr1';
     try{
         $db = new
         PDO('mysql:host = localhost;dbname=final_project;charset = utf8', $user, $password);
