@@ -63,8 +63,8 @@ else{
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>type</th>
-                    <th>category_name</th>
+                    <th>收  支</th>
+                    <th>類  別</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -113,7 +113,7 @@ else{
                         for($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++){
                             ?>
                             <tr>
-                                <th scope="row"><a onclick="ChangeContent('<?php echo $rows[$count]['c_id'];?>');"><?php echo $count+1;?></a></th>
+                                <th scope="row"><input type="button" value="編輯" onclick="ChangeContent('<?php echo $rows[$count]['c_id'];?>');"></input></th>
                                 <td>
                                     <?php echo $rows[$count]['category_name'];?>
                                 </td>

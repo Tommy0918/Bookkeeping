@@ -178,7 +178,7 @@ else{
                             for($count = 0; $count < count($rows); $count++){
                                 ?>
                                 <tr>
-                                    <th scope="row"><a onclick="ChangeContent('<?php echo $rows[$count]['rec_id'];?>');"><?php echo $count+1;?></a></th>
+                                    <th scope="row"><input type="button" value="編輯" onclick="ChangeContent('<?php echo $rows[$count]['rec_id'];?>');"><?php echo $count+1;?></input></th>
                                     <td><?php echo $rows[$count]['date'];?></td>
                                     <td>
                                         <?php
